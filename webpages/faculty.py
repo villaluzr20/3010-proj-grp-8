@@ -4,20 +4,21 @@ import psycopg2
 app = Flask(__name__)
 
 def retrievedatabase():
-    conn = psycopg2.connect
-    	db='group8_structure',
-    user='student',
-    password='student',
-    host='localhost'
+    conn = psycopg2.connect(
+        db='group8_structure',
+        user='student',
+        password='student',
+        host='localhost'
+    )
     cur = conn.cursor()
 
-cur.execute("SELECT * FROM faculty)
-data = cur.fetchall()
+    cur.execute("SELECT * FROM faculty")
+    data = cur.fetchall()
 
-cur.close()
-conn.close()
+    cur.close()
+    conn.close()
 
-return data
+    return data
 
 @app.route('/')
 def index():
