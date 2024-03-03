@@ -11,7 +11,7 @@ def retrievedatabase():
     host='localhost'
     cur = conn.cursor()
 
-cur.execute("SELECT * FROM faculty_list)
+cur.execute("SELECT * FROM faculty)
 data = cur.fetchall()
 
 cur.close()
@@ -22,7 +22,7 @@ return data
 @app.route('/')
 def index():
     data = retrievedatabase()
-    return render_template('faculty_list.html', data=data)
+    return render_template('faculty.html', data=data)
 
 if __name__ == '__main__':
     app.run(debug=True)
