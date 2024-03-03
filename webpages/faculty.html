@@ -1,19 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport"content="width=device-width, initial-scale=1.0">
-	<title>Faculty Information</title>
-	<link rel="stylesheet" href="style.css">
-	
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Directory</title>
 </head>
 <body>
-<header>
-<h1>Faculty Information</h2>
-<main>
-</main>
-<footer>
-<p>&copy; 2024 East Carolina University</p>
-</footer>
+    <h1>Computer Science Department Faculty Directory</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Honorific</th>
+                <th>First Name</th>
+                <th>M.I.</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Office</th>
+                <th>Research Interest</th>
+                <th>Rank</th>
+                <th>Remarks</th>
+                <th>Currently Employed</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $dsn = "pgsql:host=localhost;port=5432;dbname=group8_structure;user=student;password=student";
+            try {
+                $pdo = new PDO($dsn);
+                if($pdo) {
+                    $sql = 'SELECT * FROM faculty';
+                    foreach ($pdo->query($sql) as $row) {
+                        echo "<tr>";
+                        echo "<td>".$row['id']."</td>";
+                        echo "<td>".$row['honorific']."</td>";
+                        echo "<td>".$row['first']."</td>";
+                        echo "<td>".$row['mi']."</td>";
+                        echo "<td>".$row['last']."</td>";
+                        echo "<td>".$row['email']."</td>";
+                        echo "<td>".$row['phone']."</td>";
+                        echo "<td>".$row['office']."</td>";
+                        echo "<td>".$row['research_interest']."</td>";
+                        echo "<td>".$row['rank']."</td>";
+                        echo "<td>".$row['remarks']."</td>";
+                        echo "<td>".($row['currentlyemployed'] ? 'Yes' : 'No')."</td>";
+                        echo "</tr>\n";
+                    }
+                }
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+            }
+            ?>
+        </tbody>
+    </table>
 </body>
 </html>
